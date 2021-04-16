@@ -42,7 +42,17 @@ window.addEventListener('DOMContentLoaded', function () {
         let Xmove = 0
         let distance = 0
         let viewDist = 0
-        let transX = content.style.transform.replace(/[^\-.\d]/g,"") || 0
+        let transX = 0
+
+        //////height - mobile panel
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        window.addEventListener('resize', () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        });
+        /////end height - mobile panel
 
 
         content.addEventListener('touchstart', touchStart)
@@ -50,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
         function touchStart(e) {
             Xstart = e.changedTouches[0].clientX
-            transX = content.style.transform.replace(/[^\-.\d]/g,"") || 0
+            transX = contentItems[0].style.transform.replace(/[^\-.\d]/g,"") || 0
 
             Ystart = e.changedTouches[0].clientY
 
@@ -66,7 +76,10 @@ window.addEventListener('DOMContentLoaded', function () {
             Ymove = e.changedTouches[0].clientY
             Ydist = Ymove - Ystart
             if (Math.abs(Ydist) > 0  && Math.abs(Ydist) >= Math.abs(distance)) {
-                content.style.transform = `translateX(${transX}%)`
+                //content.style.transform = `translateX(${transX}%)`
+                contentItems.forEach((el) => {
+                    el.style.transform = `translateX(${transX}%)`
+                })
                 return content.removeEventListener('touchmove', touchMove)
             }
 
@@ -79,7 +92,10 @@ window.addEventListener('DOMContentLoaded', function () {
             viewDist < -50 ? viewDist = -50 : null
             //end произвольный сдвиг не более 50пикс
             
-            content.style.transform = `translateX(calc(${transX}% + ${viewDist}px))`
+            //content.style.transform = `translateX(calc(${transX}% + ${viewDist}px))`
+            contentItems.forEach((el) => {
+                el.style.transform = `translateX(calc(${transX}% + ${viewDist}px))`
+            })
         }
 
         function touchEnd(e) {
@@ -94,7 +110,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
             currentItem < 0 ? currentItem = 0 : currentItem >= totalItems ? currentItem = totalItems - 1 : null
 
-            content.style.transform = `translateX(${currentItem * -100}%)`
+            //content.style.transform = `translateX(${currentItem * -100}%)`
+            contentItems.forEach((el) => {
+                el.style.transform = `translateX(${currentItem * -100}%)`
+            })
         }
     }
 

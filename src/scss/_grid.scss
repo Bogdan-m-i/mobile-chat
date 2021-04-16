@@ -4,11 +4,11 @@
 
 .content {
 	display: flex;
-	transition: all .3s;
 
 	&__item {
 		min-width: 100vw;
-		min-height: 100vh;
+		//min-height: 100%;
+		transition: all .3s;
 	}
 
 	&__clock {
