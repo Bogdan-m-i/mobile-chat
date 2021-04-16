@@ -1,0 +1,19 @@
+.container {
+	overflow-x: hidden;
+}
+
+.content {
+	display: flex;
+	transition: all .3s;
+
+	&__item {
+		min-width: 100vw;
+		min-height: 100vh;
+	}
+
+	&__clock {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
